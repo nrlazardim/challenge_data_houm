@@ -91,14 +91,18 @@ class HoumChallenge:
                             (self.original_data_set['longitude'] == value[1])
                             ]
                         # TODO merge data frame o create csv file for each data frame with duplicated data
-                        df_to_output_final = pd.merge(self.empty_dataframe, data_frame_with_data_duplicate)
-                        # data_frame_with_data_duplicate.to_csv()
+                        # df_to_output_final = pd.merge(self.empty_dataframe, data_frame_with_data_duplicate)
+                        data_frame_with_data_duplicate.to_csv(
+                            ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_duplicated_" +
+                            str(value[0]) + "_" + str(value[1]) + ".csv"
+
+                        )
 
                 # data_repeat = data_repeat.merge(pepe, right_index=True, left_index=True, how="outer").dropna()
                 # data = df.loc[(df['latitude'] == -33.4558907) & (df['longitude'] == -70.6305771)]
                 # df.pivot_table(index=['publication_title', 'publisher', 'link'], aggfunc='size')
 
-                # logging.info('Saving Data.')
+                logging.info('Data Saved')
                 return df_to_output_final
         except Exception as e:
             logging.error(e)

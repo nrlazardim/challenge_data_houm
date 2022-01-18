@@ -39,3 +39,7 @@ OriginFile = query_result_2021-11-25T16_27_02.44381Z.csv
 Folder = ./Output
 # 3. [LOGGING]
 Folder = ./Log/
+
+# Directorios
+Es importante que la carpeta Input este creada junto con el archivo query_result_2021-11-25T16_27_02.44381Z.csv. 
+Los demas directorios (Log, Output) se crean automaticamente
