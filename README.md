@@ -28,3 +28,14 @@ resolver tu desafío. Se recomienda entregar, además de la solución, un archiv
 2. Carpeta Log se encuentra archivo -- log.log -- que indican los mensajes de registro.
 3. Carpeta utils maneja la todo lo relacionado al archivo de configuracion -- config_file.ini --
 4. Correr archivo main.py
+
+# Config File
+Para el manejo del TimeZone, en el caso argentina -- America/Buenos_Aires --, para el caso chileno --America/Santiago --
+# 1. [INPUT]
+Folder = ./Input
+TimeZone = America/Buenos_Aires o -> America/Santiago
+OriginFile = query_result_2021-11-25T16_27_02.44381Z.csv
+# 2. [OUTPUT]
+Folder = ./Output
+# 3. [LOGGING]
+Folder = ./Log/
