@@ -1,4 +1,4 @@
-from reading_data import HoumChallenge
+from Input.reading_data import HoumChallenge
 
 
 if __name__ == "__main__":
