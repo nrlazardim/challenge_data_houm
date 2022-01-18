@@ -72,7 +72,6 @@ class HoumChallenge:
         try:
             if self.original_data_set is not None:
                 logging.info('Starting Handle Data')
-                df_to_output_final = None
                 groupby_original_data_set = self.original_data_set.groupby(["latitude", "longitude"],
                                                                            as_index=False,
                                                                            sort=False).size()
@@ -92,17 +91,20 @@ class HoumChallenge:
                             ]
                         # TODO merge data frame o create csv file for each data frame with duplicated data
                         # df_to_output_final = pd.merge(self.empty_dataframe, data_frame_with_data_duplicate)
-                        data_frame_with_data_duplicate.to_csv(
-                            ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_duplicated_" +
-                            str(value[0]) + "_" + str(value[1]) + ".csv"
-
-                        )
-
-                # data_repeat = data_repeat.merge(pepe, right_index=True, left_index=True, how="outer").dropna()
-                # data = df.loc[(df['latitude'] == -33.4558907) & (df['longitude'] == -70.6305771)]
-                # df.pivot_table(index=['publication_title', 'publisher', 'link'], aggfunc='size')
+                        self.empty_dataframe = self.empty_dataframe.append(data_frame_with_data_duplicate,
+                                                                           ignore_index=True)
 
                 logging.info('Data Saved')
-                return df_to_output_final
+
+                self.empty_dataframe.to_csv(
+                    ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_duplicated_" + ".csv"
+
+                )
+                groupby_original_data_set.to_csv(
+                    ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_count" + ".csv"
+
+                )
+
+                return self.empty_dataframe
         except Exception as e:
             logging.error(e)
