@@ -1,6 +1,7 @@
 from utils.config_util import ConfigUtil
 from datetime import datetime
 import pandas as pd
+import numpy as np
 import pytz
 import logging
 import os
@@ -89,9 +90,26 @@ class HoumChallenge:
                     'origin']
                 property_was_found_on_wich_portal.drop('origin', axis=1, inplace=True)
 
+                # pivot table
+                pivot_table = property_was_found_on_wich_portal.pivot_table(values='size',
+                                                                            index=["latitude", "longitude"],
+                                                                            columns=property_was_found_on_wich_portal.index,
+                                                                            aggfunc=np.sum)
+
                 # Save Data Set
                 property_was_found_on_wich_portal.to_csv(ConfigUtil.get_path_from_config('OUTPUT', 'Folder') +
-                                                         "times_property_on_portals" + ".csv")
+                                                         "times_property_on_portals" + ".csv",
+                                                         decimal=',',
+                                                         sep=';',
+                                                         encoding='utf-8'
+                                                         )
+
+                pivot_table.to_csv(ConfigUtil.get_path_from_config('OUTPUT', 'Folder') +
+                                   "times_property_on_portals_pivot_table" + ".csv",
+                                   decimal=',',
+                                   sep=';',
+                                   encoding='utf-8')
+
                 logging.info('Data Saved Sucessfuly')
 
                 return property_was_found_on_wich_portal
@@ -100,6 +118,11 @@ class HoumChallenge:
             logging.error(e)
 
     def filter_by_portal_name(self, portal_name):
+        """
+
+        :param portal_name:
+        :return:
+        """
 
         property_on_portal = self.time_property_was_found_on_wich_portal()
 
@@ -107,27 +130,20 @@ class HoumChallenge:
 
         return filter_by_portal_name
 
-    def filter_by_longitude_latitude(self):
-        property_was_found_on_wich_portal = self.original_data_set.groupby(["latitude",
-                                                                            "longitude",
-                                                                            "origin"],
-                                                                           as_index=False,
-                                                                           sort=True).size()
+    def filter_by_longitude_latitude(self, latitude, longitude):
+        """
 
-        colum_to_list = list(property_was_found_on_wich_portal.columns)
+        :param latitude:
+        :param longitude:
+        :return:
+        """
 
-        for latitude_, longitude_ in zip(property_was_found_on_wich_portal[colum_to_list[0]],
-                                         property_was_found_on_wich_portal[colum_to_list[1]]):
+        filter_by_longitude_latitude = self.original_data_set.loc[
+                    (self.original_data_set['latitude'] == latitude) &
+                    (self.original_data_set['longitude'] == longitude)
 
-            filter_by_longitude_latitude = self.original_data_set.loc[
-                (self.original_data_set['latitude'] == longitude_) &
-                (self.original_data_set['longitude'] == latitude_)
+                ]
 
-            ]
+        logging.info("\n" + str(filter_by_longitude_latitude))
 
-            logging.info("\n" + str(filter_by_longitude_latitude))
-
-        # return filter_by_longitude_latitude
-
-
-
+        return filter_by_longitude_latitude

@@ -12,7 +12,5 @@ if __name__ == "__main__":
     huom_object = HoumChallenge()
     huom_object.time_property_was_found_on_wich_portal()
 
-    # For testing propouse
-    huom_object.filter_by_portal_name(portal_name="Yapo")
-    huom_object.filter_by_longitude_latitude()
+
 
