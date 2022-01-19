@@ -1,2 +1,21 @@
-2022-01-19 11:32:51 INFO: Reading CSV File.
-2022-01-19 11:32:53 INFO: Starting Handle Data
+2022-01-19 15:09:19 INFO: Reading CSV File.
+2022-01-19 15:09:21 INFO: Getting how many times a property was found on which portal
+2022-01-19 15:09:21 INFO: Duplicated Data: 54920 , No-Duplicated Data: 18775
+2022-01-19 15:09:21 INFO: 
+ 
+Grouping Data by Origin 
+               origin   size
+0  PortalInmobiliario  51103
+1        GoPlaceIt_CL  11573
+2                Yapo  11019
+2022-01-19 15:09:21 INFO: Data Saved Sucessfuly
+2022-01-19 15:09:21 INFO: Getting how many times a property was found on which portal
+2022-01-19 15:09:21 INFO: Duplicated Data: 54920 , No-Duplicated Data: 18775
+2022-01-19 15:09:21 INFO: 
+ 
+Grouping Data by Origin 
+               origin   size
+0  PortalInmobiliario  51103
+1        GoPlaceIt_CL  11573
+2                Yapo  11019
+2022-01-19 15:09:21 INFO: Data Saved Sucessfuly

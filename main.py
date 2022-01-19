@@ -10,5 +10,9 @@ if __name__ == "__main__":
     FileUtils.create_directory_if_not_exits(logging_directory)
 
     huom_object = HoumChallenge()
-    huom_object.duplicated_data()
-    # huom_object.grouping_data_duplicated()
+    huom_object.time_property_was_found_on_wich_portal()
+
+    # For testing propouse
+    huom_object.filter_by_portal_name(portal_name="Yapo")
+    huom_object.filter_by_longitude_latitude()
+

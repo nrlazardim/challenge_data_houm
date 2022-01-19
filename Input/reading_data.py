@@ -46,7 +46,7 @@ class HoumChallenge:
     @staticmethod
     def reading_csv() -> pd.DataFrame:
         """
-        Read a csv file, drop NaN value and change date format to datetime
+        Read a csv file and change date format to datetime for handle model
         :return: Pandas DataFrame
         """
         try:
@@ -63,89 +63,71 @@ class HoumChallenge:
         self.original_data_set = HoumChallenge.reading_csv()
         self.empty_dataframe = pd.DataFrame(columns=self.original_data_set.columns)  # TODO to be considered
 
-    def duplicated_data(self):
+    def time_property_was_found_on_wich_portal(self):
         """
-        Handle duplicated data
-        :return:
+        This method get how many times a property was found on which portal
+        :return: DataFrame
         """
         try:
             if self.original_data_set is not None:
-                logging.info('Starting Handle Data')
-
-                # dataset_duplicado = HoumChallenge.reading_csv()
-
-                # pepe_df = dataset_duplicado[["latitude", "longitude", "origin", "link"]]
-                # pepe_df.rename({"origin": "propiedad", 'link': "web"}, inplace=True)
-
-                # duplicated_latitude_longitude = self.original_data_set.duplicated(["latitude", "longitude"]).value_counts()
-
+                logging.info('Getting how many times a property was found on which portal')
+                duplicated_latitude_longitude = self.original_data_set.duplicated(["latitude",
+                                                                                   "longitude"]).value_counts()
+                logging.info("Duplicated Data: {} , No-Duplicated Data: {}".format(duplicated_latitude_longitude[1],
+                                                                                   duplicated_latitude_longitude[0]))
                 # self.original_data_set.drop_duplicates(subset=["latitude", "longitude"], inplace=True)
-
                 groupby_original_data_set_by_origin = self.original_data_set.groupby(["origin"],
                                                                                      as_index=False,
                                                                                      sort=False).size()
+                logging.info("\n \n" + "Grouping Data by Origin \n" + str(groupby_original_data_set_by_origin))
+                property_was_found_on_wich_portal = self.original_data_set.groupby(["latitude",
+                                                                                    "longitude",
+                                                                                    "origin"],
+                                                                                   as_index=False,
+                                                                                   sort=True).size()
+                property_was_found_on_wich_portal.index = property_was_found_on_wich_portal[
+                    'origin']
+                property_was_found_on_wich_portal.drop('origin', axis=1, inplace=True)
 
-                groupby_original_data_set_by_latitude_longitude = self.original_data_set.groupby(["latitude",
-                                                                                                  "longitude",
-                                                                                                  "origin"],
-                                                                                                 as_index=False,
-                                                                                                 sort=True).size()
+                # Save Data Set
+                property_was_found_on_wich_portal.to_csv(ConfigUtil.get_path_from_config('OUTPUT', 'Folder') +
+                                                         "times_property_on_portals" + ".csv")
+                logging.info('Data Saved Sucessfuly')
 
-                groupby_original_data_set_by_latitude_longitude.index = groupby_original_data_set_by_latitude_longitude['origin']
-                groupby_original_data_set_by_latitude_longitude.drop('origin', axis=1, inplace=True)
-
-
-                # pepon = self.original_data_set[(self.original_data_set['latitude'] == -33.4539223) & (self.original_data_set['longitude'] == -70.6703339)]
-                # pepe = self.original_data_set.merge(pepe_df, how='inner', on=["latitude", "longitude"])
-
-
-                print()
+                return property_was_found_on_wich_portal
 
         except Exception as e:
             logging.error(e)
 
-    def grouping_data_duplicated(self):
-        """
-        Group data by latitude and longitude information. With this group of data, we have the unique
-        properties into geographic map
-        :return:
-        """
-        try:
-            if self.original_data_set is not None:
-                logging.info('Starting Handle Data')
-                groupby_original_data_set = self.original_data_set.groupby(["latitude", "longitude"],
+    def filter_by_portal_name(self, portal_name):
+
+        property_on_portal = self.time_property_was_found_on_wich_portal()
+
+        filter_by_portal_name = property_on_portal.filter(like=portal_name, axis=0)
+
+        return filter_by_portal_name
+
+    def filter_by_longitude_latitude(self):
+        property_was_found_on_wich_portal = self.original_data_set.groupby(["latitude",
+                                                                            "longitude",
+                                                                            "origin"],
                                                                            as_index=False,
-                                                                           sort=False).size()
-                group_colum_to_list = list(groupby_original_data_set.columns)
-                tuple_value_latitude_longitude = [(latitude, longitude) if size > 1 else None
-                                                  for latitude, longitude, size in zip(
-                        groupby_original_data_set[group_colum_to_list[0]],
-                        groupby_original_data_set[group_colum_to_list[1]],
-                        groupby_original_data_set[group_colum_to_list[2]])]
+                                                                           sort=True).size()
 
-                logging.info('Getting Duplicates Properties.')
-                for value in tuple_value_latitude_longitude:
-                    if value is not None:
-                        data_frame_with_data_duplicate = self.original_data_set.loc[
-                            (self.original_data_set['latitude'] == value[0]) &
-                            (self.original_data_set['longitude'] == value[1])
-                            ]
-                        # TODO merge data frame o create csv file for each data frame with duplicated data
-                        # df_to_output_final = pd.merge(self.empty_dataframe, data_frame_with_data_duplicate)
-                        self.empty_dataframe = self.empty_dataframe.append(data_frame_with_data_duplicate,
-                                                                           ignore_index=True)
+        colum_to_list = list(property_was_found_on_wich_portal.columns)
 
-                logging.info('Data Saved')
+        for latitude_, longitude_ in zip(property_was_found_on_wich_portal[colum_to_list[0]],
+                                         property_was_found_on_wich_portal[colum_to_list[1]]):
 
-                self.empty_dataframe.to_csv(
-                    ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_duplicated" + ".csv"
+            filter_by_longitude_latitude = self.original_data_set.loc[
+                (self.original_data_set['latitude'] == longitude_) &
+                (self.original_data_set['longitude'] == latitude_)
 
-                )
-                groupby_original_data_set.to_csv(
-                    ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_count" + ".csv"
+            ]
 
-                )
+            logging.info("\n" + str(filter_by_longitude_latitude))
 
-                return self.empty_dataframe
-        except Exception as e:
-            logging.error(e)
+        # return filter_by_longitude_latitude
+
+
+
