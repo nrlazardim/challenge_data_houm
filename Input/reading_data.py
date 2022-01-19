@@ -52,7 +52,7 @@ class HoumChallenge:
         try:
             logging.info('Reading CSV File.')
             file = ConfigUtil.get_path_from_config('INPUT', 'Folder') + ConfigUtil.get_config("INPUT", "OriginFile")
-            data_set = pd.read_csv(file).dropna()
+            data_set = pd.read_csv(file)
             data_set["publication_date"] = pd.to_datetime(data_set["publication_date"])
             return data_set
         except Exception as e:
@@ -63,7 +63,48 @@ class HoumChallenge:
         self.original_data_set = HoumChallenge.reading_csv()
         self.empty_dataframe = pd.DataFrame(columns=self.original_data_set.columns)  # TODO to be considered
 
-    def grouping_data_by_latitud_longitud(self):
+    def duplicated_data(self):
+        """
+        Handle duplicated data
+        :return:
+        """
+        try:
+            if self.original_data_set is not None:
+                logging.info('Starting Handle Data')
+
+                # dataset_duplicado = HoumChallenge.reading_csv()
+
+                # pepe_df = dataset_duplicado[["latitude", "longitude", "origin", "link"]]
+                # pepe_df.rename({"origin": "propiedad", 'link': "web"}, inplace=True)
+
+                # duplicated_latitude_longitude = self.original_data_set.duplicated(["latitude", "longitude"]).value_counts()
+
+                # self.original_data_set.drop_duplicates(subset=["latitude", "longitude"], inplace=True)
+
+                groupby_original_data_set_by_origin = self.original_data_set.groupby(["origin"],
+                                                                                     as_index=False,
+                                                                                     sort=False).size()
+
+                groupby_original_data_set_by_latitude_longitude = self.original_data_set.groupby(["latitude",
+                                                                                                  "longitude",
+                                                                                                  "origin"],
+                                                                                                 as_index=False,
+                                                                                                 sort=True).size()
+
+                groupby_original_data_set_by_latitude_longitude.index = groupby_original_data_set_by_latitude_longitude['origin']
+                groupby_original_data_set_by_latitude_longitude.drop('origin', axis=1, inplace=True)
+
+
+                # pepon = self.original_data_set[(self.original_data_set['latitude'] == -33.4539223) & (self.original_data_set['longitude'] == -70.6703339)]
+                # pepe = self.original_data_set.merge(pepe_df, how='inner', on=["latitude", "longitude"])
+
+
+                print()
+
+        except Exception as e:
+            logging.error(e)
+
+    def grouping_data_duplicated(self):
         """
         Group data by latitude and longitude information. With this group of data, we have the unique
         properties into geographic map
@@ -97,7 +138,7 @@ class HoumChallenge:
                 logging.info('Data Saved')
 
                 self.empty_dataframe.to_csv(
-                    ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_duplicated_" + ".csv"
+                    ConfigUtil.get_path_from_config('OUTPUT', 'Folder') + "data_duplicated" + ".csv"
 
                 )
                 groupby_original_data_set.to_csv(

@@ -10,4 +10,5 @@ if __name__ == "__main__":
     FileUtils.create_directory_if_not_exits(logging_directory)
 
     huom_object = HoumChallenge()
-    huom_object.grouping_data_by_latitud_longitud()
+    huom_object.duplicated_data()
+    # huom_object.grouping_data_duplicated()
