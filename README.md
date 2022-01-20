@@ -22,13 +22,17 @@ Explaya sobre cuáles métodos de de-duplicación adicionales aplicarías cuando
 resolver tu desafío. Se recomienda entregar, además de la solución, un archivo requirements.txt.
 2. Envíanos tus respuestas también al correo proporcionado.
 
-# ---- IMFORMACION IMPORTANTE SOBRE LA CONSTRUCCION DEL ALGORITMO----
+
+# IMPORTANTE
+
 1. Carpeta Input. Posee ya el archivo a usar descargado y se encuentra el archivo que maneja los datos.
 2. Carpeta Log. Se encuentra archivo -- log.log -- que indican los mensajes de registro.
 3. Carpeta utils. Maneja todo lo relacionado al archivo de configuracion -- config_file.ini --
-4. Correr archivo -- main.py -- 
-5. Correr archivo -- testing_output.py -- si se desean testear los resultados de la carpeta Folder
+4. Correr archivo -- main.py -- para efectos de los resultados.
+5. Correr archivo -- testing_output.py -- si se desean testear los resultados de la carpeta Output
 6. Cada metodo tiene la descripcion de lo que hace y que parametros usa (si necesitase)
+7. Pueden instalar archivo de requerimientos de la siguiente manera: pip install requirements.txt | IOS pip3 install requirements.txt
+8. Version de python usada. Python 3.9.9 (v3.9.9:ccb0e6a345, Nov 15 2021, 13:29:20) 
 
 # Archivo de Configuracion -- config-file.ini --
 Para el manejo del TimeZone, en el caso argentina -- America/Buenos_Aires --, para el caso chileno --America/Santiago --
@@ -45,7 +49,7 @@ Folder = ./Log/
 Es importante que la carpeta Input este creada junto con el archivo query_result_2021-11-25T16_27_02.44381Z.csv. 
 Los demas directorios (Log, Output) se crean automaticamente.
 
-# IMPORTANTE
+# DATOS
 Se consideran que los datos proporcionados son una muestra y esta sujeto explicitamente a los que se ha requerido
 en el challenge. Considero que para poder identificar una propiedad correctamente deberia de existir mas informacion 
 que la latitude y la longitude. Es por esto, que la solucion al challenge esta delimitada a lo que se ha propuesto y
