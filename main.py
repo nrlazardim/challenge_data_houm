@@ -1,6 +1,7 @@
 from Input.reading_data import HoumChallenge
 from utils.config_util import ConfigUtil
 from utils.files_utils import FileUtils
+import logging
 
 if __name__ == "__main__":
     output_directory = ConfigUtil.get_path_from_config('OUTPUT', 'Folder')
@@ -11,6 +12,7 @@ if __name__ == "__main__":
 
     huom_object = HoumChallenge()
     huom_object.time_property_was_found_on_wich_portal()
+    logging.info("Program Finish")
 
 
 

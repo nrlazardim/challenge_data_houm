@@ -1,15 +1,36 @@
-2022-01-19 18:09:02 INFO: Reading CSV File.
-2022-01-19 18:09:03 INFO: Getting how many times a property was found on which portal
-2022-01-19 18:09:03 INFO: Duplicated Data: 54920 , No-Duplicated Data: 18775
-2022-01-19 18:09:03 INFO: 
+2022-01-20 07:45:37 INFO: Reading CSV File.
+2022-01-20 07:45:38 INFO: Getting how many times a property was found on which portal
+2022-01-20 07:45:38 INFO: Duplicated Data: 54920 , No-Duplicated Data: 18775
+2022-01-20 07:45:38 INFO: 
  
 Grouping Data by Origin 
                origin   size
 0  PortalInmobiliario  51103
 1        GoPlaceIt_CL  11573
 2                Yapo  11019
-2022-01-19 18:09:03 INFO: Data Saved Sucessfuly
-2022-01-19 18:09:03 INFO: 
-Empty DataFrame
-Columns: [link, origin, scraped_at, publication_date, publisher, publication_title, region, latitude, longitude, description, price_uf, is_apartment, local_price, commune, superficie_total_m2, superficie_util_m2, bedrooms, bathrooms, parking]
-Index: []
+2022-01-20 07:45:38 INFO: Output Data Saved Sucessfuly
+2022-01-20 07:45:38 INFO: Starting Filter by Portal Name. Getting sample of 10
+2022-01-20 07:45:38 INFO: 
+         latitude  longitude  size
+origin                            
+Yapo   -34.885801 -56.100777     1
+Yapo   -33.815805 -70.670843     1
+Yapo   -33.629758 -70.629374     4
+Yapo   -33.628075 -70.590932     4
+Yapo   -33.620505 -70.590098     1
+Yapo   -33.619787 -70.581833     1
+Yapo   -33.619430 -70.575990     1
+Yapo   -33.618317 -70.575915     1
+Yapo   -33.616726 -70.626275     2
+Yapo   -33.616170 -70.593620     1
+2022-01-20 07:45:38 INFO: Finish Filter by Portal Name
+2022-01-20 07:45:38 INFO: Starting Filter by Longitude and Latitude
+2022-01-20 07:45:38 INFO: 
+                                                    link  ... parking
+65450  https://www.yapo.cl/region_metropolitana/compr...  ...     NaN
+67441  https://www.yapo.cl/region_metropolitana/compr...  ...     1.0
+68482  https://www.yapo.cl/region_metropolitana/compr...  ...     NaN
+
+[3 rows x 19 columns]
+2022-01-20 07:45:38 INFO: Finish Filter by Longitude and Latitude
+2022-01-20 07:45:38 INFO: Program Finish

@@ -99,18 +99,18 @@ class HoumChallenge:
                 # Save Data Set
                 property_was_found_on_wich_portal.to_csv(ConfigUtil.get_path_from_config('OUTPUT', 'Folder') +
                                                          "times_property_on_portals" + ".csv",
-                                                         decimal=',',
+                                                         decimal='.',
                                                          sep=';',
                                                          encoding='utf-8'
                                                          )
 
                 pivot_table.to_csv(ConfigUtil.get_path_from_config('OUTPUT', 'Folder') +
                                    "times_property_on_portals_pivot_table" + ".csv",
-                                   decimal=',',
+                                   decimal='.',
                                    sep=';',
                                    encoding='utf-8')
 
-                logging.info('Data Saved Sucessfuly')
+                logging.info('Output Data Saved Sucessfuly')
 
                 return property_was_found_on_wich_portal
 
@@ -126,7 +126,11 @@ class HoumChallenge:
 
         property_on_portal = self.time_property_was_found_on_wich_portal()
 
+        logging.info('Starting Filter by Portal Name. Getting sample of 10')
         filter_by_portal_name = property_on_portal.filter(like=portal_name, axis=0)
+
+        logging.info("\n" + str(filter_by_portal_name.head(10)))
+        logging.info('Finish Filter by Portal Name')
 
         return filter_by_portal_name
 
@@ -137,13 +141,15 @@ class HoumChallenge:
         :param longitude:
         :return:
         """
+        logging.info('Starting Filter by Longitude and Latitude')
 
         filter_by_longitude_latitude = self.original_data_set.loc[
-                    (self.original_data_set['latitude'] == latitude) &
-                    (self.original_data_set['longitude'] == longitude)
+                    (self.original_data_set['latitude'] == float(latitude)) &
+                    (self.original_data_set['longitude'] == float(longitude))
 
                 ]
 
         logging.info("\n" + str(filter_by_longitude_latitude))
+        logging.info('Finish Filter by Longitude and Latitude')
 
         return filter_by_longitude_latitude
