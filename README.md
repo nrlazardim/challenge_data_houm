@@ -49,6 +49,10 @@ Folder = ./Log/
 Es importante que la carpeta Input este creada junto con el archivo query_result_2021-11-25T16_27_02.44381Z.csv. 
 Los demas directorios (Log, Output) se crean automaticamente.
 
+![Screen Shot 2022-01-20 at 08 29 49](https://user-images.githubusercontent.com/86994634/150330604-4e69d744-ea6f-4550-90e7-56ab47943391.png)
+
+![Screen Shot 2022-01-20 at 08 27 02](https://user-images.githubusercontent.com/86994634/150330372-d4ed2287-fa1d-4ebc-b2d6-fe39883561f8.png)
+
 # DATOS
 Se consideran que los datos proporcionados son una muestra y esta sujeto explicitamente a los que se ha requerido
 en el challenge. Considero que para poder identificar una propiedad correctamente deberia de existir mas informacion 
