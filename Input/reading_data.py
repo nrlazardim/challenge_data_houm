@@ -64,7 +64,7 @@ class HoumChallenge:
         self.original_data_set = HoumChallenge.reading_csv()
         self.empty_dataframe = pd.DataFrame(columns=self.original_data_set.columns)  # TODO to be considered
 
-    def time_property_was_found_on_wich_portal(self):
+    def time_property_was_found_on_wich_portal(self) -> pd.DataFrame:
         """
         This method get how many times a property was found on which portal
         :return: DataFrame
@@ -117,11 +117,11 @@ class HoumChallenge:
         except Exception as e:
             logging.error(e)
 
-    def filter_by_portal_name(self, portal_name):
+    def filter_by_portal_name(self, portal_name) -> pd.DataFrame:
         """
-
-        :param portal_name:
-        :return:
+        This method is for testing propose. Filter original data by portal name
+        :param portal_name: str format. Name of the portal tha want to get
+        :return: DataFrame
         """
 
         property_on_portal = self.time_property_was_found_on_wich_portal()
@@ -134,12 +134,12 @@ class HoumChallenge:
 
         return filter_by_portal_name
 
-    def filter_by_longitude_latitude(self, latitude, longitude):
+    def filter_by_longitude_latitude(self, latitude, longitude) -> pd.DataFrame:
         """
-
-        :param latitude:
-        :param longitude:
-        :return:
+        This method is for testing propose, filter data by longitude and latitude params
+        :param latitude: float format. Latitude
+        :param longitude: float format. Longitude
+        :return: DataFrame
         """
         logging.info('Starting Filter by Longitude and Latitude')
 
